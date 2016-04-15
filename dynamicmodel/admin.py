@@ -4,6 +4,9 @@ from django.conf import settings
 from django.contrib.contenttypes.models import ContentType
 
 from dynamicmodel.models import DynamicSchema, DynamicModel, DynamicSchemaField
+from dynamicmodel.admin_views import dynamic_schema_model_type_values, dynamic_schema_field_list,\
+    dynamic_schema_field_delete, dynamic_schema_field_type_select, dynamic_schema_field_form,\
+    dynamic_schema_field_form
 
 
 class DynamicSchemaAdmin(admin.ModelAdmin):
@@ -11,26 +14,26 @@ class DynamicSchemaAdmin(admin.ModelAdmin):
 
     def get_urls(self):
         urls = super(DynamicSchemaAdmin, self).get_urls()
-        custom_urls = ['dynamicmodel.admin_views',
+        custom_urls = [
             url(r'^ct/(?P<ct_id>\d+)/choices/$',
-                'dynamic_schema_model_type_values',
+                dynamic_schema_model_type_values,
                 name='dynamicmodel_dynamicschema_model_type_values'),
             url(r'^(?P<schema_id>\d+)/field_list/$',
-                'dynamic_schema_field_list',
+                dynamic_schema_field_list,
                 name='dynamicmodel_dynamicschema_field_list'),
             url(r'^field/(?P<field_id>\d+)/delete/$',
-                'dynamic_schema_field_delete',
+                dynamic_schema_field_delete,
                 name='dynamicmodel_dynamicschema_field_delete'),
             url(r'^field_type_select/$',
-                'dynamic_schema_field_type_select',
+                dynamic_schema_field_type_select,
                 name='dynamicmodel_dynamicschema_field_type_select'),
             url(r'^(?P<schema_id>\d+)/forms/(?P<field_type>%s)/$' %
                 ("|".join(dict(DynamicSchemaField.FIELD_TYPES).keys())),
-                'dynamic_schema_field_form',
+                dynamic_schema_field_form,
                 name='dynamicmodel_dynamicschema_field_form_create'),
             url(r'^(?P<schema_id>\d+)/forms/(?P<field_type>%s)/(?P<field_id>\d+)/$' %
                 ("|".join(dict(DynamicSchemaField.FIELD_TYPES).keys())),
-                'dynamic_schema_field_form',
+                dynamic_schema_field_form,
                 name='dynamicmodel_dynamicschema_field_form_edit'),
         ]
         return custom_urls + urls
