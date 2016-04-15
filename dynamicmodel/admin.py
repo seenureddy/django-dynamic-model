@@ -18,7 +18,7 @@ class DynamicSchemaAdmin(admin.ModelAdmin):
             url(r'^(?P<schema_id>\d+)/field_list/$',
                 'dynamic_schema_field_list',
                 name='dynamicmodel_dynamicschema_field_list'),
-            url(r'^/field/(?P<field_id>\d+)/delete/$',
+            url(r'^field/(?P<field_id>\d+)/delete/$',
                 'dynamic_schema_field_delete',
                 name='dynamicmodel_dynamicschema_field_delete'),
             url(r'^field_type_select/$',
