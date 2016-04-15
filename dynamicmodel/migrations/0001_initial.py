@@ -1,7 +1,11 @@
 # -*- coding: utf-8 -*-
 import datetime
-from south.db import db
-from south.v2 import SchemaMigration
+try:
+    from south.db import db
+    from south.v2 import SchemaMigration
+except:
+    from django.db.migrations import Migration as SchemaMigration
+
 from django.db import models
 
 

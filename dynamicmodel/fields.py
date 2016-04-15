@@ -25,14 +25,21 @@
 # OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
 # WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
+import django
 
 from django.db import models
 from django.core.serializers.json import DjangoJSONEncoder
-from django.utils import simplejson as json
 from django.utils.translation import ugettext_lazy as _
 
 from django.forms.fields import Field
-from django.forms.util import ValidationError as FormValidationError
+
+if django.VERSION <= (1, 7):
+    from django.utils import simplejson as json
+    from django.forms.util import ValidationError as FormValidationError
+if django.VERSION >= (1, 9):    
+    # django >1.9
+    import simplejson as json
+    from django.forms.utils import ValidationError as FormValidationError
 
 
 class JSONFormField(Field):
